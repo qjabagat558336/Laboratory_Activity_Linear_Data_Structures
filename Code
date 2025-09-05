@@ -1,0 +1,175 @@
+package cce105;
+
+import java.util.*;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class Lab_Activity {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        Stack<Integer> stack = new Stack<>();
+        Queue<Integer> queue = new LinkedList<>();
+        LinkedList<Integer> linkedList = new LinkedList<>();
+        Node head = null; 
+
+        while (true) {
+            System.out.println("\nChoose Data Structure:");
+            System.out.println("1. Stack");
+            System.out.println("2. Queue");
+            System.out.println("3. Linked List");
+            System.out.println("4. Circular Linked List");
+            System.out.println("5. Exit");
+            System.out.print("Enter choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    while (true) {
+                        System.out.println("\n--- Stack Operations ---");
+                        System.out.println("1. Push");
+                        System.out.println("2. Pop");
+                        System.out.println("3. Display");
+                        System.out.println("4. Back");
+                        System.out.print("Enter choice: ");
+                        int c = sc.nextInt();
+
+                        if (c == 1) {
+                            System.out.print("Enter value to push: ");
+                            int val = sc.nextInt();
+                            stack.push(val);
+                            System.out.println("Pushed " + val + " into stack.");
+                        } else if (c == 2) {
+                            if (!stack.isEmpty())
+                                System.out.println("Popped: " + stack.pop());
+                            else
+                                System.out.println("Stack is empty.");
+                        } else if (c == 3) {
+                            System.out.println("Stack contents: " + stack);
+                        } else break;
+                    }
+                    break;
+
+                case 2:
+                    while (true) {
+                        System.out.println("\n--- Queue Operations ---");
+                        System.out.println("1. Enqueue");
+                        System.out.println("2. Dequeue");
+                        System.out.println("3. Display");
+                        System.out.println("4. Back");
+                        System.out.print("Enter choice: ");
+                        int c = sc.nextInt();
+
+                        if (c == 1) {
+                            System.out.print("Enter value to enqueue: ");
+                            int val = sc.nextInt();
+                            queue.add(val);
+                            System.out.println("Enqueued " + val + " into queue.");
+                        } else if (c == 2) {
+                            if (!queue.isEmpty())
+                                System.out.println("Dequeued: " + queue.poll());
+                            else
+                                System.out.println("Queue is empty.");
+                        } else if (c == 3) {
+                            System.out.println("Queue contents: " + queue);
+                        } else break;
+                    }
+                    break;
+
+                case 3:
+                    while (true) {
+                        System.out.println("\n--- Linked List Operations ---");
+                        System.out.println("1. Insert at Beginning");
+                        System.out.println("2. Delete at Beginning");
+                        System.out.println("3. Display");
+                        System.out.println("4. Back");
+                        System.out.print("Enter choice: ");
+                        int c = sc.nextInt();
+
+                        if (c == 1) {
+                            System.out.print("Enter value to insert: ");
+                            int val = sc.nextInt();
+                            linkedList.addFirst(val);
+                            System.out.println("Inserted " + val + " at beginning.");
+                        } else if (c == 2) {
+                            if (!linkedList.isEmpty())
+                                System.out.println("Deleted: " + linkedList.removeFirst());
+                            else
+                                System.out.println("List is empty.");
+                        } else if (c == 3) {
+                            System.out.println("Linked List contents: " + linkedList);
+                        } else break;
+                    }
+                    break;
+
+                case 4: 
+                    while (true) {
+                        System.out.println("\n--- Circular Linked List Operations ---");
+                        System.out.println("1. Insert");
+                        System.out.println("2. Delete");
+                        System.out.println("3. Display");
+                        System.out.println("4. Back");
+                        System.out.print("Enter choice: ");
+                        int c = sc.nextInt();
+
+                        if (c == 1) {
+                            System.out.print("Enter value to insert: ");
+                            int val = sc.nextInt();
+                            Node newNode = new Node(val);
+                            if (head == null) {
+                                head = newNode;
+                                head.next = head;
+                            } else {
+                                Node temp = head;
+                                while (temp.next != head) temp = temp.next;
+                                temp.next = newNode;
+                                newNode.next = head;
+                            }
+                            System.out.println("Inserted " + val + " into circular list.");
+                        } else if (c == 2) {
+                            if (head == null) {
+                                System.out.println("List is empty.");
+                            } else if (head.next == head) {
+                                System.out.println("Deleted: " + head.data);
+                                head = null;
+                            } else {
+                                Node temp = head;
+                                while (temp.next.next != head) temp = temp.next;
+                                System.out.println("Deleted: " + temp.next.data);
+                                temp.next = head;
+                            }
+                        } else if (c == 3) {
+                            if (head == null) {
+                                System.out.println("List is empty.");
+                            } else {
+                                System.out.print("Circular List contents: ");
+                                Node temp = head;
+                                do {
+                                    System.out.print(temp.data + " ");
+                                    temp = temp.next;
+                                } while (temp != head);
+                                System.out.println();
+                            }
+                        } else break;
+                    }
+                    break;
+
+                case 5:
+                    System.out.println("Exiting program...");
+                    sc.close();
+                    return;
+
+                default:
+                    System.out.println("Invalid choice. Try again.");
+            }
+        }
+    }
+}
